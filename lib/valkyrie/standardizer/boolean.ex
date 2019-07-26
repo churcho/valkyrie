@@ -1,7 +1,8 @@
 defmodule Valkyrie.Standardizer.Boolean do
-  def standardize(value) when is_boolean(value), do: {:ok, value}
+  @moduledoc false
+  def standardize(_, value) when is_boolean(value), do: {:ok, value}
 
-  def standardize(value) do
+  def standardize(_, value) do
     case value do
       "true" -> {:ok, true}
       "false" -> {:ok, false}

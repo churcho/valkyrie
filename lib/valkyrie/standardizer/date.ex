@@ -1,8 +1,10 @@
 defmodule Valkyrie.Standardizer.Timestamp do
+  @moduledoc false
   defdelegate standardize(field, value), to: Valkyrie.Standardizer.Date, as: :standardize
 end
 
 defmodule Valkyrie.Standardizer.Date do
+  @moduledoc false
   def standardize(%{type: type, format: format}, value) do
     case Timex.parse(value, format) do
       {:ok, parsed_value} -> {:ok, parsed_value}

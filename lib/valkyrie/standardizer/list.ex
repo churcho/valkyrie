@@ -1,4 +1,5 @@
 defmodule Valkyrie.Standardizer.List do
+  @moduledoc false
   def standardize(%{type: "list"}, value) when not is_list(value), do: {:error, :invalid_list}
 
   def standardize(%{type: "list"} = field, value) do

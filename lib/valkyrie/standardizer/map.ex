@@ -1,4 +1,5 @@
 defmodule Valkyrie.Standardizer.Map do
+  @moduledoc false
   def standardize(_, value) when not is_map(value), do: {:error, :invalid_map}
 
   def standardize(%{subSchema: sub_schema}, value) do
