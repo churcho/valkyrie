@@ -36,6 +36,13 @@ defmodule Valkyrie do
     Protocol.UndefinedError -> {:error, :invalid_string}
   end
 
+  defp standardize(%{type: "json"}, value) do
+    case Jason.encode(value) do
+      {:ok, result} -> {:ok, result}
+      _ -> {:error, :invalid_json}
+    end
+  end
+
   defp standardize(%{type: type}, value) when type in ["integer", "long"] and is_integer(value), do: {:ok, value}
 
   defp standardize(%{type: type}, value) when type in ["integer", "long"] do
