@@ -1,14 +1,9 @@
-defmodule Valkyrie.Standardizer.Integer do
-  @moduledoc false
-  defdelegate standardize(field, value), to: Valkyrie.Standardizer.WholeNumber, as: :standardize
-end
-
 defmodule Valkyrie.Standardizer.Long do
   @moduledoc false
-  defdelegate standardize(field, value), to: Valkyrie.Standardizer.WholeNumber, as: :standardize
+  defdelegate standardize(field, value), to: Valkyrie.Standardizer.Integer, as: :standardize
 end
 
-defmodule Valkyrie.Standardizer.WholeNumber do
+defmodule Valkyrie.Standardizer.Integer do
   @moduledoc false
   def standardize(_, value) when is_integer(value), do: {:ok, value}
 

@@ -30,8 +30,14 @@ defmodule Valkyrie do
 
   def standardize(_field, nil), do: {:ok, nil}
 
-  def standardize(%{type: type} = field, value) do
+  def standardize(field, value) do
+    invoke_standardizer_based_on_type(field, value)
+  end
+
+  defp invoke_standardizer_based_on_type(%{type: type} = field, value) do
     module = :"Elixir.Valkyrie.Standardizer.#{String.capitalize(type)}"
     apply(module, :standardize, [field, value])
+  rescue
+    UndefinedFunctionError -> {:error, :invalid_type}
   end
 end

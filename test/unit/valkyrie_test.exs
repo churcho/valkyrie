@@ -388,6 +388,22 @@ defmodule ValkyrieTest do
       expected = {:error, %{"spouses" => {:invalid_list, "#{inspect(%{"age" => :invalid_integer})} at index 1"}}}
       assert expected == Valkyrie.standardize_data(dataset, payload)
     end
+
+    test "returns error that identifies unknown schema type" do
+      dataset =
+        TDG.create_dataset(
+          id: "ds1",
+          technical: %{
+            schema: [
+              %{name: "geometry", type: "unknown"}
+            ]
+          }
+        )
+
+      payload = %{"geometry" => %{name: "some value"}}
+
+      assert {:error, %{"geometry" => :invalid_type}} == Valkyrie.standardize_data(dataset, payload)
+    end
   end
 
   describe "json is converted" do
